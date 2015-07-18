@@ -1,0 +1,103 @@
+define(["sugar-web/graphics/palette","mustache"],
+	function(palette,mustache){
+
+
+	var radiopalette = {};
+
+
+	  var ctx = PaintApp.elements.canvas.getContext("2d");
+
+
+		 var element = document.createElement('radio');
+
+
+
+	function onRadioSelect(event) {
+      
+
+      var ctx = PaintApp.elements.canvas.getContext("2d");
+
+     
+      request.onload = function(e) {
+
+        if (request.status === 200 || request.status === 0) {
+        
+
+          var element = document.createElement('radio');
+        
+          element.onload = function() {
+            var ctx = PaintApp.elements.canvas.getContext("2d");
+
+           
+            PaintApp.saveCanvas();
+          }
+        }
+      };
+      request.send(null);
+    }
+
+    function initGui() {
+      var radioButton = document.getElementById("radio-button");
+      var radiopalette = new PaintApp.palettes.radiopalette.RadioPalette(radioButton, undefined);
+      radiopalette.addEventListener('radioChange', onRadioSelect);
+    
+    }
+
+    radiopalette.initGui = initGui;
+
+    radiopalette.RadioPalette = function(invoker, primaryText) {
+      palette.Palette.call(this, invoker, primaryText);
+
+      this.radioChangeEvent = document.createEvent("CustomEvent");
+      this.radioChangeEvent.initCustomEvent('radioChange', true, true, {
+        'drawings': "icons/size-1.svg"
+      });
+
+
+
+
+
+	 drawingssElem.innerHTML = mustache.render(this.template, drawingssData);
+      this.setContent([drawingssElem]);
+
+      // Pop-down the palette when a item in the menu is clicked.  //POP DOWN STUFF
+
+      this.buttons = drawingssElem.querySelectorAll('button');
+      var that = this;
+
+      function popDownOnButtonClick(event) {
+        that.radioChangeEvent.detail.radios = event.target.value;
+        that.getPalette().dispatchEvent(that.radioChangeEvent);
+        that.popDown();
+      }
+
+      for (var i = 0; i < this.buttons.length; i++) {
+        this.buttons[i].addEventListener('click', popDownOnButtonClick);
+      }
+
+
+  radiopalette.RadioPalette.prototype =
+      Object.create(palette.Palette.prototype, {
+        setdrawings: {
+          value: setdrawings,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        },
+        addEventListener: {
+          value: addEventListener,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        }
+      });
+
+
+
+
+
+
+
+
+
+			});
